@@ -24,9 +24,7 @@
 
 @implementation Example
 
-+ (NSNumber *) isEven: (NSArray *) args {
-	NSNumber* i = [args objectAtIndex: 0];
-
++ (NSNumber *) isEven: (NSNumber *) i {
 	BOOL b = [i intValue] % 2 == 0;
 
 	return [NSNumber numberWithBool: b];
@@ -42,12 +40,11 @@
 	return [NSNumber numberWithInt: i];
 }
 
-+ (NSNumber *) reversible: (NSArray *) args {
-	NSString* s = [args objectAtIndex: 0];
++ (NSNumber *) reversible: (NSString *) s {
 	NSString* r = [s reverse];
 	NSString* s2 = [r reverse];
 
-	BOOL b = [s isEqualToString: s2];
+	BOOL b = [s isEqualToString: [[s reverse] reverse]];
 
 	return [NSNumber numberWithBool: b];
 }
@@ -57,23 +54,23 @@
 int main(int argc, char **argv) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-	NSArray* gs = [NSMutableArray array];
-	gs = [gs arrayByAddingObject: ^() { return [ObjCheck genNum]; }];
+	NSMutableArray* gs = [NSMutableArray array];
+	[gs addObject: ^() { return [ObjCheck genNum]; }];
 	
 	// Are all integers even?
-	[ObjCheck forAll: ^(NSArray* args) { return [Example isEven: args]; } withGenerators: gs];
+	[ObjCheck forAll: [Example class] withProperty: @selector(isEven:) withGenerators: gs];
 	
-	NSArray* gs2 = [NSMutableArray array];
-	gs2 = [gs2 arrayByAddingObject: ^() { return [Example genEven]; }];
+	NSMutableArray* gs2 = [NSMutableArray array];
+	[gs2 addObject: ^() { return [Example genEven]; }];
 	
 	// Are all even integers even?
-	[ObjCheck forAll: ^(NSArray* args) { return [Example isEven: args]; } withGenerators: gs2];
+	[ObjCheck forAll: [Example class] withProperty: @selector(isEven:) withGenerators: gs2];
 
-	NSArray* gs3 = [NSMutableArray array];
-	gs3 = [gs3 arrayByAddingObject: ^() { return [ObjCheck genString]; }];
+	NSMutableArray* gs3 = [NSMutableArray array];
+	[gs3 addObject: ^() { return [ObjCheck genString]; }];
 
 	// Are all strings reversible?
-	[ObjCheck forAll: ^(NSArray* args) { return [Example reversible: args]; } withGenerators: gs3];
+	[ObjCheck forAll: [Example class] withProperty: @selector(reversible:) withGenerators: gs3];
 
 	[pool drain];
 

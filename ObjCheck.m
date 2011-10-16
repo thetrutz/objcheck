@@ -65,7 +65,7 @@
 	return s;
 }
 
-+ forAll: (NSNumber*(^)(NSArray*)) property withGenerators: (NSArray *) generators {
++ forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators {
 	int i, j;
 	for (i = 0; i < 100; i++) {
 		NSArray* values = [NSMutableArray array];
@@ -76,7 +76,7 @@
 			values = [values arrayByAddingObject: value];
 		}
 
-		NSNumber* propertyHolds = property(values);
+		NSNumber* propertyHolds = [target performSelector: property withArgs: values];
 
 		if(![propertyHolds boolValue]) {
 			printf("*** Failed!\n%s\n", [[values description] UTF8String]);

@@ -14,6 +14,6 @@
 + (NSArray *) genArray: (id(^)()) gen;
 + (NSString *) genString;
 
-+ forAll: (NSNumber*(^)(NSArray*)) property withGenerators: (NSArray *) generators;
++ forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators;
 
 @end
