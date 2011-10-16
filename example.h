@@ -1,12 +1,14 @@
 #import <Foundation/Foundation.h>
 
+@interface NSString (reverse)
+- (NSString *) reverse;
+@end
+
 @interface Example: NSObject {}
 
 + (NSNumber *) isEven: (id) args;
 
 + (NSNumber *) genEven;
-
-+ (id) reverse: (id) s;
 
 + (NSNumber *) reversible: (id) args;
 

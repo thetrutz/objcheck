@@ -2,6 +2,26 @@
 #import "ObjCheck.h"
 #import <Foundation/Foundation.h>
 
+@implementation NSString (reverse)
+
+// From Mac Developer Tips
+// http://macdevelopertips.com/objective-c/objective-c-categories.html
+- (NSString *) reverse {
+	NSString *result;
+
+	int len = [self length];
+
+	result = [NSMutableString stringWithCapacity: len];
+
+	while (len > 0) {
+		result = [result stringByAppendingString: [NSString stringWithFormat: @"%c", [self characterAtIndex: --len]]];
+	}
+
+	return result;
+}
+
+@end
+
 @implementation Example
 
 + (NSNumber *) isEven: (id) args {
@@ -22,26 +42,10 @@
 	return [NSNumber numberWithInt: i];
 }
 
-// From Mac Developer Tips
-// http://macdevelopertips.com/objective-c/objective-c-categories.html
-+ (id) reverse: (id) s {
-	NSString *result;
-
-	int len = [(NSString*) s length];
-
-	result = [NSMutableString stringWithCapacity: len];
-
-	while (len > 0) {
-		result = [result stringByAppendingString: [NSString stringWithFormat: @"%c", [(NSString*) s characterAtIndex: --len]]];
-	}
-
-	return result;
-}
-
 + (NSNumber *) reversible: (id) args {
 	NSString* s = [(NSArray*) args objectAtIndex: 0];
-	NSString* r = [self reverse: s];
-	NSString* s2 = [self reverse: r];
+	NSString* r = [s reverse];
+	NSString* s2 = [r reverse];
 
 	BOOL b = [s isEqualToString: s2];
 
