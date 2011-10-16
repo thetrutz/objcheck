@@ -53,13 +53,13 @@
 }
 
 + (NSString *) genString {
-	NSArray* arr = (NSArray*) [self genArray: ^() { return (id) [ObjCheck genChar]; }];
+	NSArray* arr = [self genArray: ^() { return (id) [ObjCheck genChar]; }];
 
-	NSString* s = [NSMutableString stringWithCapacity: [arr count]];
+	NSMutableString* s = [NSMutableString stringWithCapacity: [arr count]];
 
 	int i;
 	for (i = 0; i < [arr count]; i++) {
-		s = [s stringByAppendingString: [NSString stringWithFormat: @"%c", [[(NSArray*) arr objectAtIndex: i] charValue]]];
+		[s appendString: [NSString stringWithFormat: @"%c", [[arr objectAtIndex: i] charValue]]];
 	}
 
 	return s;
