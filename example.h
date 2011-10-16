@@ -1,6 +1,6 @@
-#import <objc/Object.h>
+#import <Foundation/Foundation.h>
 
-@interface Example: Object {}
+@interface Example: NSObject {}
 
 + (id) isEven: (id) args;
 
