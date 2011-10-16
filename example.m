@@ -4,7 +4,7 @@
 
 @implementation Example
 
-+ (id) isEven: (id) args {
++ (NSNumber *) isEven: (id) args {
 	NSNumber* i = [(NSArray*) args objectAtIndex: 0];
 
 	BOOL b = [i intValue] % 2 == 0;
@@ -38,7 +38,7 @@
 	return result;
 }
 
-+ (id) reversible: (id) args {
++ (NSNumber *) reversible: (id) args {
 	NSString* s = [(NSArray*) args objectAtIndex: 0];
 	NSString* r = [self reverse: s];
 	NSString* s2 = [self reverse: r];

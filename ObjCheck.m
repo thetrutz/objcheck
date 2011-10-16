@@ -44,7 +44,7 @@
 	return s;
 }
 
-+ forAll: (id(^)(id)) property withGenerators: (id) generators {
++ forAll: (NSNumber*(^)(id)) property withGenerators: (id) generators {
 	int i, j, k;
 	for (i = 0; i < 100; i++) {
 		NSArray* values = [NSMutableArray array];

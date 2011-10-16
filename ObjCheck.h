@@ -8,6 +8,6 @@
 + (NSArray *) genArray: (id(^)()) gen;
 + (NSString *) genString;
 
-+ forAll: (id(^)(id)) property withGenerators: (id) generators;
++ forAll: (NSNumber*(^)(id)) property withGenerators: (id) generators;
 
 @end
