@@ -45,7 +45,7 @@
 }
 
 + forAll: (NSNumber*(^)(id)) property withGenerators: (id) generators {
-	int i, j, k;
+	int i, j;
 	for (i = 0; i < 100; i++) {
 		NSArray* values = [NSMutableArray array];
 
@@ -58,11 +58,7 @@
 		NSNumber* propertyHolds = property(values);
 
 		if(![propertyHolds boolValue]) {
-			printf("*** Failed!\n");
-
-			for(k = 0; k < [values count]; k++) {
-				printf("%s\n", [[[values objectAtIndex: k] description] UTF8String]);
-			}
+			printf("*** Failed!\n%s\n", [[values description] UTF8String]);
 
 			return;
 		}
