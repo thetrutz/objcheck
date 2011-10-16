@@ -6,10 +6,10 @@
 
 @interface Example: NSObject {}
 
-+ (NSNumber *) isEven: (id) args;
++ (NSNumber *) isEven: (NSArray *) args;
 
 + (NSNumber *) genEven;
 
-+ (NSNumber *) reversible: (id) args;
++ (NSNumber *) reversible: (NSArray *) args;
 
 @end
