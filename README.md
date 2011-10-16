@@ -1,9 +1,5 @@
 objcheck - an ObjC port of the QuickCheck unit test framework
 
-HOMEPAGE
-
-[http://www.yellosoft.us/quickcheck](http://www.yellosoft.us/quickcheck)
-
 EXAMPLE
 
 	$ make
