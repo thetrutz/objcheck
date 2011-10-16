@@ -12,7 +12,7 @@
 	return [NSNumber numberWithBool: b];
 }
 
-+ (id) genEven {
++ (NSNumber *) genEven {
 	int i = [(NSNumber*)[ObjCheck genNum] intValue];
 
 	if(i % 2 != 0) {

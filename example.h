@@ -4,7 +4,7 @@
 
 + (NSNumber *) isEven: (id) args;
 
-+ (id) genEven;
++ (NSNumber *) genEven;
 
 + (id) reverse: (id) s;
 
