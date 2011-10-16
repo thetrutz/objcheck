@@ -2,6 +2,29 @@
 #import <Foundation/Foundation.h>
 #import <stdlib.h>
 
+@implementation NSObject (performSelectorWithArgs)
+
+- (id) performSelector: (SEL) sel withArgs: (NSArray *) args {
+	NSInvocation *inv = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: sel]];
+	[inv setSelector: sel];
+	[inv setTarget: self];
+
+	int i;
+	for (i = 0; i < [args count]; i++) {
+		id a = [args objectAtIndex: i];
+		[inv setArgument: &a atIndex: 2 + i]; // 0 is target, 1 i cmd-selector
+	}
+
+	[inv invoke];
+
+	NSNumber *r;
+	[inv getReturnValue: &r];
+
+	return r;
+}
+
+@end
+
 @implementation ObjCheck
 
 + (NSNumber *) genNum {
@@ -17,15 +40,13 @@
 }
 
 + (NSArray *) genArray: (id(^)()) gen {
-	NSArray* arr = [NSMutableArray array];
+	NSMutableArray* arr = [NSMutableArray array];
 
 	int len = arc4random() % 100;
 
 	int i;
 	for (i = 0; i < len; i++) {
-		id value = gen();
-
-		arr = [arr arrayByAddingObject: value];
+		[arr addObject: gen()];
 	}
 
 	return arr;
