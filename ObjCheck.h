@@ -2,11 +2,11 @@
 
 @interface ObjCheck: NSObject {}
 
-+ (id) genNum;
-+ (id) genBool;
-+ (id) genChar;
-+ (id) genArray: (id(^)()) gen;
-+ (id) genString;
++ (NSNumber *) genNum;
++ (NSNumber *) genBool;
++ (NSNumber *) genChar;
++ (NSArray *) genArray: (id(^)()) gen;
++ (NSString *) genString;
 
 + forAll: (id(^)(id)) property withGenerators: (id) generators;
 

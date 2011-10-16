@@ -4,19 +4,19 @@
 
 @implementation ObjCheck
 
-+ (id) genNum {
++ (NSNumber *) genNum {
 	return [NSNumber numberWithInt: arc4random()];
 }
 
-+ (id) genBool {
++ (NSNumber *) genBool {
 	return [NSNumber numberWithBool: arc4random() % 2 == 0 ];
 }
 
-+ (id) genChar {
++ (NSNumber *) genChar {
 	return [NSNumber numberWithChar: (char) (arc4random() % 128)];
 }
 
-+ (id) genArray: (id(^)()) gen {
++ (NSArray *) genArray: (id(^)()) gen {
 	NSArray* arr = [NSMutableArray array];
 
 	int len = arc4random() % 100;
@@ -31,8 +31,8 @@
 	return arr;
 }
 
-+ (id) genString {
-	NSArray* arr = (NSArray*) [self genArray: ^() { return [ObjCheck genChar]; }];
++ (NSString *) genString {
+	NSArray* arr = (NSArray*) [self genArray: ^() { return (id) [ObjCheck genChar]; }];
 
 	NSString* s = [NSMutableString stringWithCapacity: [arr count]];
 
