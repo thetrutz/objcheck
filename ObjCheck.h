@@ -1,6 +1,6 @@
-#import <objc/Object.h>
+#import <Foundation/Foundation.h>
 
-@interface ObjCheck: Object {}
+@interface ObjCheck: NSObject {}
 
 + (id) genNum;
 + (id) genBool;
