@@ -44,13 +44,13 @@
 	return s;
 }
 
-+ forAll: (NSNumber*(^)(id)) property withGenerators: (id) generators {
++ forAll: (NSNumber*(^)(id)) property withGenerators: (NSArray *) generators {
 	int i, j;
 	for (i = 0; i < 100; i++) {
 		NSArray* values = [NSMutableArray array];
 
 		for (j = 0; j < [generators count]; j++) {
-			id value = ((id(^)()) [(NSArray*) generators objectAtIndex: j])();
+			id value = ((id(^)()) [generators objectAtIndex: j])();
 
 			values = [values arrayByAddingObject: value];
 		}
