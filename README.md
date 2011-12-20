@@ -1,10 +1,10 @@
-objcheck - an ObjC port of the QuickCheck unit test framework
+# objcheck - an ObjC port of the QuickCheck unit test framework
 
-HOMEPAGE
+## HOMEPAGE
 
 [http://www.yellosoft.us/quickcheck](http://www.yellosoft.us/quickcheck)
 
-EXAMPLE
+## EXAMPLE
 
 	$ make
 	$ ./example 
