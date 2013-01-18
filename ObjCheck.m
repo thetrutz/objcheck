@@ -65,7 +65,7 @@
 	return s;
 }
 
-+ forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators {
++ (void)forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators {
 	int i, j;
 	for (i = 0; i < 100; i++) {
 		NSArray* values = [NSMutableArray array];
