@@ -8,12 +8,12 @@
 
 @interface ObjCheck: NSObject {}
 
-+ (NSNumber *) genNum;
-+ (NSNumber *) genBool;
-+ (NSNumber *) genChar;
-+ (NSArray *) genArray: (id(^)()) gen;
-+ (NSString *) genString;
++ (NSNumber *)genNum;
++ (NSNumber *)genBool;
++ (NSNumber *)genChar;
++ (NSArray  *)genArray:(id(^)())gen;
++ (NSString *)genString;
 
-+ (void)forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators;
++ (BOOL)forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators;
 
 @end
