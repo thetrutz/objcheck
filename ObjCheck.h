@@ -8,12 +8,6 @@
 
 @interface ObjCheck: NSObject {}
 
-+ (NSNumber *)genNum;
-+ (NSNumber *)genBool;
-+ (NSNumber *)genChar;
-+ (NSArray  *)genArray:(id(^)())gen;
-+ (NSString *)genString;
-
 + (BOOL)forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators;
 
 @end
