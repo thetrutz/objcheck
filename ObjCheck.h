@@ -1,14 +1,15 @@
 #import <Foundation/Foundation.h>
+#import <SenTestingKit/SenTestingKit.h>
 
-@interface NSObject (performSelectorWithArgs)
+@interface NSObject (ObjCheck)
 
 - (id) performSelector: (SEL) sel withArgs: (NSArray *) args;
 - (void)validateArbitrary;
 
 @end
 
-@interface ObjCheck: NSObject {}
+@interface SenTestCase (ObjCheck)
 
-+ (BOOL)forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators;
+- (void)property:(SEL)property holdsForParameters:(NSArray *)generators;
 
 @end

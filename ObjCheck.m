@@ -3,9 +3,11 @@
 #import <stdlib.h>
 #import "NSArray-Extension.h"
 #import "NSObject+SmartDescription.h"
-#import <SenTestingKit/SenTestingKit.h>
 
-@implementation NSObject (performSelectorWithArgs)
+#define HC_SHORTHAND
+#import <OCHamcrestIOS/OCHamcrestIOS.h>
+
+@implementation NSObject (ObjCheck)
 
 - (id) performSelector: (SEL) sel withArgs: (NSArray *) args {
     NSInvocation *inv = [NSInvocation invocationWithMethodSignature: [self methodSignatureForSelector: sel]];
@@ -29,21 +31,23 @@
 - (void)validateArbitrary {
     NSArray *propertiesWithoutValue = [[self mapProp:^id(objc_property_t prop, char propType, NSString *propName) {
         return propType == @encode(id)[0]         // is an object-property (not a primitive type)
-        && [self valueForKey:propName] == nil // property is empty
-        ? propName : nil;
+            && [self valueForKey:propName] == nil // property is empty
+             ? propName : nil;
     }] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return evaluatedObject != [NSNull null];
     }]];
+    #warning throw exception
     if ([propertiesWithoutValue count]) {
-        STAssertTrue(NO,@"%s: Not all Object properties of %@ are filled with sample data (they should be in order for the tests to have any significance). Please write generators for the following properties:\n%@",__PRETTY_FUNCTION__, [self class], propertiesWithoutValue);
+        NSLog(@"%s: Not all properties of instance %@ of class <%@> are filled with sample data (they should be in order for the tests to have any significance). Please write generators for the following properties:\n%@",__PRETTY_FUNCTION__, self, [self class], propertiesWithoutValue);
+        NSAssert(NO,@"");
     }
 }
 
 @end
 
-@implementation ObjCheck
+@implementation SenTestCase (ObjCheck)
 
-+ (BOOL)forAll: (id) target withProperty: (SEL) property withGenerators: (NSArray *) generators {
+- (void)property:(SEL)property holdsForParameters:(NSArray *)generators {
     int i, j;
     for (i = 0; i < 100; i++) {
         NSArray* values = [NSMutableArray array];
@@ -54,20 +58,11 @@
             values = [values arrayByAddingObject: value];
         }
 
-        NSNumber* propertyHolds = [target performSelector: property withArgs: values];
-
-        if(![propertyHolds boolValue]) {
-            NSString *parameteStr = [[values mapBlock:^(id o){ return [o description]; }] componentsJoinedByString:@"\n"];
-            NSString *message = [NSString stringWithFormat:@"*** Failed!\ntarget class %@\nselector %@\nparameters\n%@",[target class], NSStringFromSelector(property),parameteStr];
-
-            NSLog(@"%@",message);
-
-            return NO;
-        }
+        NSNumber* propertyHolds = [self performSelector: property withArgs: values];
+        STAssertTrue([propertyHolds boolValue],@"*** Failed!\nproperty: %@\nparameters\n%@", NSStringFromSelector(property),[[values mapBlock:^(id o){ return [o description]; }] componentsJoinedByString:@"\n"]);
     }
 
-    NSLog(@"+++ OK, passed 100 tests.");
-    return YES;
+    NSLog(@"+++ OK, %@ passed 100 tests.",NSStringFromSelector(property));
 }
 
 @end
