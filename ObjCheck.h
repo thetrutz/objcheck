@@ -3,6 +3,7 @@
 @interface NSObject (performSelectorWithArgs)
 
 - (id) performSelector: (SEL) sel withArgs: (NSArray *) args;
+- (void)validateArbitrary;
 
 @end
 

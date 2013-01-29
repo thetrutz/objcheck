@@ -26,6 +26,18 @@
     return r;
 }
 
+- (void)validateArbitrary {
+    NSArray *propertiesWithoutValue = [[self mapProp:^id(objc_property_t prop, char propType, NSString *propName) {
+        return propType == @encode(id)[0]         // is an object-property (not a primitive type)
+        && [self valueForKey:propName] == nil // property is empty
+        ? propName : nil;
+    }] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return evaluatedObject != [NSNull null];
+    }]];
+    if ([propertiesWithoutValue count]) {
+        STAssertTrue(NO,@"%s: Not all Object properties of %@ are filled with sample data (they should be in order for the tests to have any significance). Please write generators for the following properties:\n%@",__PRETTY_FUNCTION__, [self class], propertiesWithoutValue);
+    }
+}
 
 @end
 
