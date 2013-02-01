@@ -36,7 +36,7 @@
     }] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
         return evaluatedObject != [NSNull null];
     }]];
-    #warning throw exception
+    // todo throw an exception
     if ([propertiesWithoutValue count]) {
         NSLog(@"%s: Not all properties of instance %@ of class <%@> are filled with sample data (they should be in order for the tests to have any significance). Please write generators for the following properties:\n%@",__PRETTY_FUNCTION__, self, [self class], propertiesWithoutValue);
         NSAssert(NO,@"");
